@@ -1,11 +1,16 @@
-import styles from './app.module.css';
-import { getQuiz } from './services/quiz-service';
+import { Routes, Route } from 'react-router-dom';
+import styled from 'styled-components';
+import { HomePage, QuizPage } from './pages';
+
+const Page = styled.div``;
 
 export const App = () => {
-	console.log('getQuiz =', getQuiz());
 	return (
-		<div className={styles.app}>
-			<div>Hello</div>
-		</div>
+		<Page>
+			<Routes>
+				<Route path="/" element={<HomePage />} />
+				<Route path="/quiz" element={<QuizPage />} />
+			</Routes>
+		</Page>
 	);
 };

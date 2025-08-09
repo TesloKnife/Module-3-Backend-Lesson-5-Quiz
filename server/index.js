@@ -26,6 +26,26 @@ app.get("/api/quiz", async (req, res) => {
               { text: "Python", isCorrect: false },
             ],
           },
+          {
+            text: "Сколько родительских HTML тегов может быть выведено в React JS компоненте?",
+            answers: [
+              { text: "Всегда 1", isCorrect: true },
+              { text: "Не более 3", isCorrect: false },
+              { text: "Не более 10", isCorrect: false },
+              { text: "Неограниченное количество", isCorrect: false },
+              { text: "Не более 5", isCorrect: false },
+            ],
+          },
+          {
+            text: "Как много компонентов может быть на сайте?",
+            answers: [
+              { text: "Не более 300", isCorrect: false },
+              { text: "Неограниченное количество", isCorrect: true },
+              { text: "Не более 50", isCorrect: false },
+              { text: "Не более 10", isCorrect: false },
+              { text: "Не более 100", isCorrect: false },
+            ],
+          },
         ],
       });
       console.log("Default quiz created:", quiz);

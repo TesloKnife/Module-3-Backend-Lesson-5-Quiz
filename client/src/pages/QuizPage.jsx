@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import { getQuiz } from '../services/quiz-service';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 const QuizPageContainer = ({ className }) => {
 	const [quiz, setQuiz] = useState(null); // Хранит весь тест из БД
@@ -67,13 +68,14 @@ const QuizPageContainer = ({ className }) => {
 			(count, result) => (result?.isCorrect ? count + 1 : count),
 			0,
 		);
-
+		const answers = results.map((item) => item.isCorrect);
 		setScore(correctCount);
 		setIsFinished(true);
 
 		// Сохраняем в историю
 		const historyRecord = {
 			date: new Date().toLocaleString(),
+			answers,
 			totalQuestions: quiz.questions.length,
 			correctAnswers: correctCount,
 		};
@@ -160,6 +162,10 @@ const QuizPageContainer = ({ className }) => {
 			</div>
 		</div>
 	);
+};
+
+QuizPageContainer.propTypes = {
+	className: PropTypes.string,
 };
 
 export const QuizPage = styled(QuizPageContainer)`

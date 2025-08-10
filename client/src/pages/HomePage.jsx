@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HistoryList } from '../components/HistoryList';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const HomePageContainer = ({ className }) => {
@@ -24,11 +25,13 @@ const HomePageContainer = ({ className }) => {
 					Редактировать тест
 				</button>
 			</div>
-
-			<h2 className="history-title">История прохождений</h2>
 			<HistoryList history={history} />
 		</div>
 	);
+};
+
+HomePageContainer.propTypes = {
+	className: PropTypes.string,
 };
 
 export const HomePage = styled(HomePageContainer)`

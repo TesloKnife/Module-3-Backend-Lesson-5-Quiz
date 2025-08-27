@@ -2,8 +2,8 @@
 
 ## Запуск:
 
-cd serve
-npm run /serve
+cd server
+npm run serve
 
 cd client
 npm run dev

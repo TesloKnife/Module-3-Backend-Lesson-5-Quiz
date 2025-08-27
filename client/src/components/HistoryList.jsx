@@ -4,15 +4,43 @@ import PropTypes from 'prop-types';
 const HistoryListContainer = ({ className }) => {
 	const history = JSON.parse(localStorage.getItem('quizHistory') || '[]');
 
+	const parseDate = (dateString) => {
+		if (dateString.includes('T')) {
+			return new Date(dateString);
+		}
+
+		if (dateString.includes('.')) {
+			try {
+				const [datePart, timePart] = dateString.split(', ');
+				const [day, month, year] = datePart.split('.');
+				const [hours, minutes, seconds] = timePart.split(':');
+				return new Date(`${year}-${month}-${day}T${hours}:${minutes}:${seconds}`);
+			} catch {
+				return new Date(NaN);
+			}
+		}
+
+		return new Date(dateString);
+	};
+
 	// Сортируем историю по дате (новые сначала)
 	const sortedHistory = [...history].sort((a, b) => {
-		return new Date(b.date) - new Date(a.date);
+		return parseDate(b.date) - parseDate(a.date);
 	});
 
 	const formatDate = (dateString) => {
-		const date = new Date(dateString);
+		const date = parseDate(dateString);
+
+		if (isNaN(date.getTime())) {
+			return { datePart: 'Неверная дата', timePart: '' };
+		}
+
 		const datePart = date.toLocaleDateString('ru-RU');
-		const timePart = date.toLocaleTimeString('ru-RU');
+		const timePart = date.toLocaleTimeString('ru-RU', {
+			hour: '2-digit',
+			minute: '2-digit',
+		});
+
 		return { datePart, timePart };
 	};
 
